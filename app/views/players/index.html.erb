@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="breadcrumb">
+      <li>
+        <a href="/players">Players</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <form method="get" action="/players" class="form-inline" >
+      <div class="form-group">
+        <input name="filter" class="form-control" type="search" value="<%= @filter %>" placeholder="search@example.com" />
+      </div>
+      <button type="submit" class="btn btn-primary"> <i class="glyphicon glyphicon-search glyphicon-white"></i></button>
+      <a href="/players" class="btn btn-default"> <i class="glyphicon glyphicon-refresh glyphicon-grey"></i></a>
+    </form>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <%= link_to 'New Player', new_player_path, class: 'btn btn-success pull-right' %>
+  </div>
+</div>
+
+
+<%= will_paginate @players, :class => 'pagination', :style => 'margin:0' %>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Grade</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= link_to highlight(player.name, @filter), [player] %></td>
+        <td><span class="label label-success" style="background-color: #<%= player.grade.colour %>;"><%= player.grade.name %></span></td>
+        <td><%= highlight(player.email, @filter) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @players, :class => 'pagination', :style => 'margin:0' %>
+
+

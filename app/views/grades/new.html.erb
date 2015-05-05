@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="breadcrumb">
+      <li>
+        <a href="/grades">Grades</a>
+      </li>
+      <li class="active">New</li>
+    </ul>
+  </div>
+</div>
+
+<%= bootstrap_form_for(@grade) do |f| %>
+  <div class="row">
+    <div class="col-lg-4 col-sm-12">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+  <%= link_to 'Back', @grade, class: 'btn btn-default' %>
+  <%= f.submit 'Create', class: 'btn btn-success' %>
+<% end %>
+
+

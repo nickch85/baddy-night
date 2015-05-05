@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="breadcrumb">
+      <li>
+        <a href="/players">Players</a>
+      </li>
+      <li><%= link_to @player.name, [@player] %></li>
+      <li class="active">Edit</li>
+    </ul>
+  </div>
+</div>
+<%= bootstrap_form_for(@player) do |f| %>
+  <div class="row">
+    <div class="col-lg-5 col-xs-12">
+      <%= f.text_field :name %>
+      <%= f.number_field :age %>
+      <%= f.text_field :email %>
+      <%= f.text_field :phone %>
+      <%= f.select :grade_id, options_from_collection_for_select(Grade.by_rank.all, :id, :name) %>
+    </div>
+    <div class="col-lg-5 col-xs-12">
+      <%= f.text_field :address1 %>
+      <%= f.text_field :address2 %>
+      <%= f.text_field :suburb %>
+      <%= f.text_field :postal_code %>
+      <div class="form-group">
+        <%= f.label :country_code, "Country" %>
+        <%= country_select :player, :country_code, {priority_countries: ["NZ"], prompt: "NZ"}, class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+  <%= link_to 'Back', [@player], class: 'btn btn-default' %>
+  <%= f.submit 'Update', class: 'btn btn-warning' %>
+
+<% end %>
+
+
