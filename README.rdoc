@@ -16,5 +16,19 @@ TODO LIST:
     * how many straight games?
     * need rest?
     * which players can be put up or down grade games?
+    * female and male only games? mixed?
     * start round functionality, countdown timer
+
+
+
+
+An Event has many Rounds.
+With each round, you can specify the number of courts (X).
+
+Each round has many Games.
+There can only be a total of X (courts) number of Games each round.
+Each Game can be assigned 4 players.
+
+Can create the round and auto assign players, but allow for drag and drop to change assignement
+
 
