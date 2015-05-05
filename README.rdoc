@@ -7,7 +7,7 @@ WIP
 
 
 TODO LIST:
-
+* Member types: Casual, Full Member, Affiliate only
 * Implement Session (Night). session is probably an important keyword
   * Implement AJAX add attendee, and refreshing of attendee and rounds tables
   * Implement 'player left event'
