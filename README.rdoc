@@ -11,6 +11,9 @@ TODO LIST:
 * Implement clearing of grades off a player if a grade is deleted
 * Implement Session (Night). session is probably an important keyword
 * Implement 'Rounds', each 15 minute round of badminton
-  ** assigning of players -> how many straight games? need rest? which players can be put up or down grade games?
-  ** start round functionality, countdown timer
+  * assigning of players
+    * how many straight games?
+    * need rest?
+    * which players can be put up or down grade games?
+    * start round functionality, countdown timer
 
