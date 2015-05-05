@@ -4,3 +4,13 @@ Quick prototype of a web based app that helps keep track of badminton players an
 helps organise game rosters.
 
 WIP
+
+
+TODO LIST:
+
+1) Implement clearing of grades off a player if a grade is deleted
+2) Implement Session (Night). session is probably an important keyword
+3) Implement 'Rounds', each 15 minute round of badminton
+  * assigning of players -> how many straight games? need rest? which players can be put up or down grade games?
+  * start round functionality, countdown timer
+
