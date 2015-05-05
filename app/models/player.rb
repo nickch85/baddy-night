@@ -3,6 +3,7 @@ class Player < ActiveRecord::Base
 
   belongs_to :grade
 
+  validates :name, :presence => true
 
 
   def country_name
