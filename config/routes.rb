@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
+  resources :events do
+    member do
+      post :add_player
+    end
+  end
   resources :players
   resources :grades do
     collection do
       post :sort
     end
   end
+  root 'home#show'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

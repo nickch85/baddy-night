@@ -14,4 +14,12 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require turbolinks
-//= require_tree .
+//= require bootstrap-sprockets
+
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
+//= require bootstrap-typeahead-rails
+//= require jquery.bootstrap-growl
+//= require script
+
+

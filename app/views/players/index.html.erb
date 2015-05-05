@@ -37,7 +37,7 @@
     <% @players.each do |player| %>
       <tr>
         <td><%= link_to highlight(player.name, @filter), [player] %></td>
-        <td><span class="label label-success" style="background-color: #<%= player.grade.colour %>;"><%= player.grade.name %></span></td>
+        <td><span class="label label-success" style="background-color: #<%= player.grade_colour %>;"><%= player.grade.name %></span></td>
         <td><%= highlight(player.email, @filter) %></td>
       </tr>
     <% end %>

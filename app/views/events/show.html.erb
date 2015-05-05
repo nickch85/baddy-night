@@ -1,0 +1,129 @@
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="breadcrumb">
+      <li>
+        <a href="/events">Events</a>
+      </li>
+      <li class="active"><%= @event.name %> (<%= @event.event_date %>)</li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-6">
+    <%= link_to 'Back', events_path, class: 'btn btn-default'  %>
+    <%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-warning' %>
+  </div>
+  <div class="col-xs-6 text-right">
+    <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <h3>
+      Attendees
+      <span class="header-inline">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addAttendee">
+          <i class="glyphicon glyphicon-plus"></i>
+        </button>
+      </span>
+    </h3>
+    <table class="table">
+      <tr>
+        <th>Player</th>
+        <th>Grade</th>
+        <th>Arrived</th>
+        <th>Left?</th>
+      </tr>
+      <% @players.each do |p| %>
+        <% ep = p.event_player_for(@event) %>
+        <tr>
+          <td><%= link_to p.name, [p] %></td>
+          <td><span class="label" style="background-color: #<%= p.grade_colour %>"><%= p.grade.name %></span></td>
+          <td><%= ep.arrived_at %></td>
+          <td><%= p.has_left_event?(@event) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div class="col-xs-12 col-md-6">
+    <h3>
+      Rounds
+      <span class="header-inline">
+        <%= link_to "", class: 'btn btn-default' do %>
+          <i class="glyphicon glyphicon-plus"></i>
+        <% end %>
+      </span>
+    </h3>
+    <table class="table">
+      <tr>
+        <th>#</th>
+        <th># Courts</th>
+        <th>Time Set Up</th>
+        <th>Time Started</th>
+        <th>Time Ended</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>11</td>
+        <td>19:00</td>
+        <td>19:10</td>
+        <td>Ongoing</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+
+<div class="modal" id="addAttendee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add attendee</h4>
+      </div>
+      <%= bootstrap_form_tag url: add_player_event_path(@event) do |f| %>
+        <div class="modal-body">
+          <%= f.text_field :player_name, placeholder: 'Player Name', class: 'typeahead' %>
+          <%= f.hidden_field :player_id %>
+        </div>
+        <div class="modal-footer">
+          <%= link_to 'Cancel', nil, class: 'btn btn-default', data: {dismiss: 'modal'} %>
+          <%= f.submit 'Add', class: 'btn btn-success' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+function getOptionsFromJson(json) {
+  return $.map(json, function (n, i) {
+      return n.name;
+  });
+}
+$(document).ready(function() {
+  $('.typeahead').typeahead(null, {
+    display: 'name',
+    source: function (query, process) {
+      return $.getJSON('<%= players_path %>.json?term=' + query, function (json) {
+        players = [];
+        map = {};
+        process(json);
+      });
+    }
+  });
+
+  $('.typeahead').on('typeahead:selected', function (e, datum) {
+    $('#_player_id').val(datum.id);
+  });
+  $('.typeahead').on('typeahead:cursorchanged', function (e, datum) {
+    $('#_player_id').val(datum.id);
+  });
+});
+</script>

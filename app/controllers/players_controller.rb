@@ -4,14 +4,16 @@ class PlayersController < ApplicationController
   # GET /players
   # GET /players.json
   def index
-    @filter = params[:filter] || ''
-
-    if !@filter.blank?
-      @players = Player.by_name.where("name like ? OR email like ?",'%' + @filter + '%','%' + @filter + '%').paginate(:page => params[:page], :per_page => 50)
+    if q = params[:term]
+      @players = Player.by_name.where("name like ? OR email like ?","#{q}%", "#{q}%")
     else
-      @players = Player.by_name.paginate(:page => params[:page], :per_page => 50)
+      @filter = params[:filter] || ''
+      if !@filter.blank?
+        @players = Player.by_name.where("name like ? OR email like ?", "#{@filter}%","#{@filter}%").paginate(:page => params[:page], :per_page => 50)
+      else
+        @players = Player.by_name.paginate(:page => params[:page], :per_page => 50)
+      end
     end
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @players }

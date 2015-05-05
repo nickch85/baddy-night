@@ -1,5 +1,6 @@
+
 .main {
-  margin-top: 70px;
+  padding-top: 70px;
 }
 .grade-btn {
   padding: 10px 30px;
@@ -12,4 +13,7 @@
 
 .header-inline {
   float:right;
+}
+.datepicker {
+  z-index: 9999;
 }

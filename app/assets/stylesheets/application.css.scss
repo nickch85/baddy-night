@@ -1,3 +1,9 @@
+/*
+*= require jquery-ui
+*= require bootstrap-typeahead-rails
+*/
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "style.css.scss";
+@import "bootstrap-datepicker";
+
