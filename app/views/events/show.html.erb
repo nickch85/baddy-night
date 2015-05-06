@@ -4,7 +4,7 @@
       <li>
         <a href="/events">Events</a>
       </li>
-      <li class="active"><%= @event.name %> (<%= @event.event_date %>)</li>
+      <li class="active"><%= @event.description %></li>
     </ul>
   </div>
 </div>
@@ -27,9 +27,9 @@
     <h3>
       Attendees
       <span class="header-inline">
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addAttendee">
+        <%= link_to [:add_players, @event], class: 'btn btn-default' do %>
           <i class="glyphicon glyphicon-plus"></i>
-        </button>
+        <% end -%>
       </span>
     </h3>
     <table class="table">
@@ -42,10 +42,10 @@
       <% @players.each do |p| %>
         <% ep = p.event_player_for(@event) %>
         <tr>
-          <td><%= link_to p.name, [p] %></td>
-          <td><span class="label" style="background-color: #<%= p.grade_colour %>"><%= p.grade.name %></span></td>
+          <td><%= gender_icon(p) %> <%= link_to p.full_name, [p] %></td>
+          <td><%= grade_badge(p.grade) %></td>
           <td><%= ep.arrived_at %></td>
-          <td><%= p.has_left_event?(@event) %></td>
+          <td><%= bool_yesno(p.has_left_event?(@event)) %></td>
         </tr>
       <% end %>
     </table>
@@ -89,16 +89,16 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Add attendee</h4>
       </div>
-      <%= bootstrap_form_tag url: add_player_event_path(@event) do |f| %>
+      <%#= bootstrap_form_tag url: add_player_event_path(@event) do |f| %>
         <div class="modal-body">
-          <%= f.text_field :player_name, placeholder: 'Player Name', class: 'typeahead' %>
-          <%= f.hidden_field :player_id %>
+          <%#= f.text_field :player_name, placeholder: 'Player Name', class: 'typeahead' %>
+          <%#= f.hidden_field :player_id %>
         </div>
         <div class="modal-footer">
-          <%= link_to 'Cancel', nil, class: 'btn btn-default', data: {dismiss: 'modal'} %>
-          <%= f.submit 'Add', class: 'btn btn-success' %>
+          <%#= link_to 'Cancel', nil, class: 'btn btn-default', data: {dismiss: 'modal'} %>
+          <%#= f.submit 'Add', class: 'btn btn-success' %>
         </div>
-      <% end %>
+      <%# end %>
     </div>
   </div>
 </div>

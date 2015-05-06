@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :add_player]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :add_players]
 
   # GET /events
   # GET /events.json
@@ -15,7 +15,7 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @event = Event.new
+    @event = Event.new(event_date: Date.today)
   end
 
   # GET /events/1/edit
@@ -62,15 +62,25 @@ class EventsController < ApplicationController
     end
   end
 
-  def add_player
-    @player = Player.find(params[:player_id])
-    respond_to do |format|
-      if @event.add_player(@player)
-        format.html { redirect_to @event, notice: 'Player was added to event' }
-      else
-        format.html { render :show }
+  def add_players
+    @available_players = @event.players.any? ? Player.where('id NOT IN (?)', @event.players.collect(&:id)) : Player.all
+    if request.post?
+       #{}"players"=>{"1"=>"1", "2"=>"0"},
+      player_ids = params[:players].reject{|k,v| v.to_i.zero?}.keys
+
+      respond_to do |format|
+        if @event.add_players(player_ids)
+          format.html { redirect_to [:add_players, @event], notice: 'Players were added to event' }
+        else
+          format.html { render :show }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html
       end
     end
+
   end
 
   private

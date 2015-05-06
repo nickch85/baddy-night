@@ -5,13 +5,13 @@ class PlayersController < ApplicationController
   # GET /players.json
   def index
     if q = params[:term]
-      @players = Player.by_name.where("name like ? OR email like ?","#{q}%", "#{q}%")
+      @players = Player.by_last_name.search(q)
     else
       @filter = params[:filter] || ''
       if !@filter.blank?
-        @players = Player.by_name.where("name like ? OR email like ?", "#{@filter}%","#{@filter}%").paginate(:page => params[:page], :per_page => 50)
+        @players = Player.by_last_name.search(@filter).paginate(:page => params[:page], :per_page => 50)
       else
-        @players = Player.by_name.paginate(:page => params[:page], :per_page => 50)
+        @players = Player.by_last_name.paginate(:page => params[:page], :per_page => 50)
       end
     end
     respond_to do |format|
@@ -38,7 +38,6 @@ class PlayersController < ApplicationController
   # POST /players.json
   def create
     @player = Player.new(player_params)
-
     respond_to do |format|
       if @player.save
         format.html { redirect_to @player, notice: 'Player was successfully created.' }
@@ -82,6 +81,6 @@ class PlayersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def player_params
-      params.require(:player).permit(:name, :age, :email, :phone, :address1, :address2, :suburb, :postal_code, :country_code, :grade_id)
+      params.require(:player).permit(:first_name, :last_name, :gender, :membership_type, :age, :email, :phone, :address1, :address2, :suburb, :postal_code, :country_code, :grade_id)
     end
 end

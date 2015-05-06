@@ -1,7 +1,21 @@
 class Event < ActiveRecord::Base
   has_many :event_players
-  has_and_belongs_to_many :players
+  has_many :players, through: :event_players
   scope :latest, -> { order('event_date DESC')}
+  validates :event_date, :presence => true
+
+  def description
+    "#{name} (#{event_date})"
+  end
+
+  def add_players(player_ids)
+    Event.transaction do
+      player_ids.each do |pid|
+        p = Player.find(pid)
+        add_player(p)
+      end
+    end
+  end
 
   def add_player(player)
     ep = self.event_players.new

@@ -4,12 +4,12 @@
       <li>
         <a href="/players">Players</a>
       </li>
-      <li><%= link_to @player.name, [@player] %></li>
+      <li><%= link_to @player.full_name, [@player] %></li>
     </ul>
   </div>
 </div>
 
-<h2><%= @player.name %> <small class="label label-success header-inline"  style="background-color: #<%= @player.grade_colour %>;"><%= @player.grade.name %></small></h2>
+<h2><%= gender_icon @player %> <%= @player.full_name %> <%= grade_badge(@player.grade, class: 'header-inline') %> <small><%= @player.membership_type %></small></h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <p>
@@ -61,6 +61,8 @@
     <%= link_to 'Edit', edit_player_path(@player), class: 'btn btn-warning' %>
   </div>
   <div class="col-xs-6 text-right">
-    <%= link_to 'Destroy', @player, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    <%= link_to @player, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' do %>
+      <%= glyphicon(:trash) %> Delete
+    <% end %>
   </div>
 </div>

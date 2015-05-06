@@ -1,4 +1,5 @@
 /*
+*= require jquery.minicolors
 *= require jquery-ui
 *= require bootstrap-typeahead-rails
 */
@@ -6,4 +7,4 @@
 @import "bootstrap";
 @import "style.css.scss";
 @import "bootstrap-datepicker";
-
+@import "font-awesome";

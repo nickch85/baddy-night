@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   resources :events do
     member do
-      post :add_player
+      get :add_players
+      post :add_players
     end
   end
   resources :players

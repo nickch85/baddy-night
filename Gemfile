@@ -38,7 +38,9 @@ gem 'bootstrap-sass', '~> 3.3.4'
 gem 'bootstrap-will_paginate'
 gem 'bootstrap_form'
 gem 'bootstrap-datepicker-rails'
+gem 'bootstrap-typeahead-rails'
 
+gem "font-awesome-rails"
 
 gem 'countries'
 gem 'country_select', github: 'stefanpenner/country_select'

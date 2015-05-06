@@ -20,6 +20,7 @@
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
 //= require bootstrap-typeahead-rails
 //= require jquery.bootstrap-growl
+//= require jquery.minicolors
 //= require script
 
 

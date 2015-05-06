@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="breadcrumb">
+      <li>
+        <a href="/events">Events</a>
+      </li>
+      <li><%= link_to @event.description, [@event] %></li>
+      <li class="active">Add Players</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-5">
+    <h3>Add Players</h3>
+    <% if @available_players.any? %>
+      <%= bootstrap_form_for :players, :url => [:add_players, @event] do |f| %>
+        <ul class="list-group">
+          <% @available_players.each do |p| %>
+            <li class="list-group-item">
+              <%= f.check_box p.id do %>
+                <%= gender_icon(p) %> <%= p.full_name %> <%= grade_badge(p.grade) %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <%= f.submit 'Add Players', class: 'btn btn-success' %>
+      <% end %>
+    <% else %>
+      <div class="well">
+        No players available left to add. <br />
+        <%= link_to 'Register a new player', new_player_path %>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-2 hidden-sm">
+  </div>
+  <div class="col-md-5">
+    <h3>Players already attending</h3>
+    <% if @event.players.any? %>
+      <ul class="list-group">
+        <% @event.players.each do |p| %>
+          <li class="list-group-item">
+            <%= gender_icon(p) %> <%= p.full_name %> <%= grade_badge(p.grade) %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="well">
+        No players attending yet
+      </div>
+    <% end %>
+  </div>
+</div>

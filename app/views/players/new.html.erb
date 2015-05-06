@@ -11,13 +11,16 @@
 <%= bootstrap_form_for(@player) do |f| %>
   <div class="row">
     <div class="col-lg-5 col-xs-12">
-      <%= f.text_field :name %>
+      <%= f.text_field :first_name %>
+      <%= f.text_field :last_name %>
+      <%= f.select :gender, Player::GENDER_OPTIONS %>
+      <%= f.select :grade_id, options_from_collection_for_select(Grade.by_rank.all, :id, :name) %>
+      <%= f.select :membership_type, Player::MEMBERSHIP_TYPES %>
+    </div>
+    <div class="col-lg-5 col-xs-12">
       <%= f.number_field :age %>
       <%= f.text_field :email %>
       <%= f.text_field :phone %>
-      <%= f.select :grade_id, options_from_collection_for_select(Grade.by_rank.all, :id, :name) %>
-    </div>
-    <div class="col-lg-5 col-xs-12">
       <%= f.text_field :address1 %>
       <%= f.text_field :address2 %>
       <%= f.text_field :suburb %>
